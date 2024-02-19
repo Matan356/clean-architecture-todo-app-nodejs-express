@@ -1,16 +1,21 @@
-import { AnyZodObject } from 'zod';
+const Joi = require('joi');
 
 const validate = (schema) => (req, res, next) => {
   try {
-    schema.parse({
-      body: req.body,
-      query: req.query,
-      params: req.params,
-    });
-    next();
+    const { body, query, params } = req;
+    const input = { body, query, params };
+    const { error } = schema.validate(input, { abortEarly: false });
+    if (!error) {
+      next();
+    } else {
+      const errorMessage = error.details.map(detail => detail.message).join(', ');
+      console.error('Validation error:', errorMessage);
+      return res.status(400).json({ error: errorMessage });
+    }
   } catch (e) {
-    return res.status(400).send(e.errors);
+    console.error('Error:', e);
+    return res.status(500).json({ error: 'Internal Server Error' });
   }
 };
 
-export default validate;
+module.exports = validate;

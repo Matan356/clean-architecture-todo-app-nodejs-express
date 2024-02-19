@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".", // זה מאפשר לVS Code לזהות נתיבים מהשורש של הפרויקט
+        "paths": {
+            "@/*": [
+                "src/*"
+            ] // החלף את "src/" עם התיקייה שהאליאס שלך מצביע אליה
+        }
+    },
+    "include": [
+        "src/**/*"
+, "config/default.js"    ],
+    "exclude": [
+        "node_modules",
+        "**/node_modules/*"
+    ]
+}

@@ -1,32 +1,32 @@
-// todos.dao.js 
+// todos.dao.js
 
-const Todo = require('../models/todo.model')
+const Todo = require('../models/todo.model');
 
 const getAllTodos = async () => {
-  return await Todo.find()  
-}
+  return await Todo.find();
+};
 
-const getTodoById = async input => {
-  return await Todo.findById(input)
-} 
+const getTodo = async (input) => {
+  return await Todo.findById(input);
+};
 
-const createTodo = async input => {
-  return await Todo.create(input) 
-}
+const createTodo = async (input) => {
+  return await Todo.create(input);
+};
 
-const deleteTodo = async input => {
-  return await Todo.deleteOne(input) 
-}
+const deleteTodo = async (input) => {
+  return await Todo.findByIdAndDelete(input);
+};
 
-const updateTodo = async input => {
-  return await Todo.findOneAndUpdate(input) 
-}
+const updateTodo = async (id, input) => {
+  return await Todo.findByIdAndUpdate(id, input, { new: true });
+};
 
-// export DA functions 
+// export DA functions
 module.exports = {
   getAllTodos,
-  getTodoById,
+  getTodo,
   deleteTodo,
   updateTodo,
-  createTodo
-}
+  createTodo,
+};
